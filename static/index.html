@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Data Analyst</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Financial Data Analyst</h1>
+        </header>
+        
+        <div class="main-content">
+            <div class="file-upload-section">
+                <h2>Upload Financial Data</h2>
+                <div class="file-upload-container">
+                    <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" />
+                    <button id="uploadButton">Upload</button>
+                </div>
+                <div id="fileInfo" class="file-info"></div>
+            </div>
+            
+            <div class="chat-section">
+                <div id="chatMessages" class="chat-messages"></div>
+                
+                <div class="chat-input">
+                    <input type="text" id="queryInput" placeholder="Ask a question about your data..." />
+                    <button id="sendButton">Send</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="statusBar" class="status-bar"></div>
+    </div>
+    
+    <script src="app.js"></script>
+</body>
+</html>
