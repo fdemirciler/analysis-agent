@@ -1,0 +1,126 @@
+# Changelog
+
+All notable changes to the Financial Analysis Agent project will be documented in this file.
+
+## [1.0.0] - 2025-07-15 - MVP Release
+
+### 🎉 Initial MVP Implementation
+
+#### Added
+- **Core Application Framework**
+  - FastAPI-based backend server
+  - WebSocket real-time communication
+  - Session management system
+  - File upload and processing pipeline
+
+- **Data Processing Engine**
+  - Automatic data profiling and structure detection
+  - Support for CSV and Excel file formats
+  - Wide-format financial data handling
+  - Period and metric identification
+
+- **LLM Integration System**
+  - Abstract provider interface for multiple LLM services
+  - Google Gemini provider implementation
+  - OpenAI provider implementation (ready for use)
+  - JSON response parsing and validation
+  - Retry logic with exponential backoff
+
+- **Analysis Tools Framework**
+  - Base tool architecture with Pydantic validation
+  - Variance analysis tool implementation
+  - Configurable significance thresholds
+  - Percentage and absolute variance calculations
+
+- **Frontend Interface**
+  - Modern, responsive web UI
+  - File upload with drag-and-drop support
+  - Real-time chat interface
+  - Status indicators and progress feedback
+  - Mobile-friendly design
+
+- **Key Features**
+  - Natural language query processing
+  - Automatic tool selection by LLM
+  - Multi-period financial analysis
+  - Conversation history tracking
+  - Error handling with user-friendly messages
+
+#### Technical Implementation
+- **Backend Architecture**
+  - Modular component design
+  - Type-safe parameter handling
+  - Comprehensive logging system
+  - Environment-based configuration
+
+- **Data Flow**
+  - File → Profile → Query → Tool Selection → Execution → Response
+  - Session-based state management
+  - WebSocket bidirectional communication
+
+- **Error Handling**
+  - Pandas DataFrame boolean context fix
+  - CSS loading path correction
+  - Module import resolution
+  - WebSocket connection management
+
+#### Tested Functionality
+- ✅ NVIDIA financial statement analysis
+- ✅ Multi-year variance comparison (2022-2025)
+- ✅ Significant change identification
+- ✅ Natural language response formatting
+- ✅ Real-time user interaction
+
+#### Known Limitations
+- Single variance analysis tool (extensible for more)
+- Local file storage (temporary directory)
+- No data persistence between sessions
+- Limited to financial statement wide-format data
+
+### 🐛 Bug Fixes
+- Fixed DataFrame truth value ambiguity error in WebSocket handler
+- Corrected CSS file reference in HTML template
+- Resolved Python module import structure
+
+### 📝 Documentation
+- Comprehensive README with setup instructions
+- Architecture documentation
+- Usage examples and query patterns
+- Future enhancement roadmap
+
+---
+
+## Development Notes
+
+### Architecture Decisions
+1. **WebSocket over REST**: Chosen for real-time user feedback during file processing and query execution
+2. **Modular Tool System**: Designed for easy extension with additional analysis capabilities
+3. **LLM Provider Abstraction**: Enables switching between different AI services without code changes
+4. **Pydantic Validation**: Ensures type safety and clear API contracts
+
+### Performance Considerations
+- File processing happens asynchronously with progress updates
+- LLM responses cached at session level
+- Minimal frontend JavaScript for fast loading
+
+### Security Measures
+- File upload validation by extension
+- Temporary file cleanup
+- Environment variable configuration
+- CORS middleware for development
+
+---
+
+## Next Release Planning
+
+### Planned Features (v1.1.0)
+- Additional analysis tools (trend, ratio analysis)
+- Data visualization components
+- Export functionality
+- Enhanced error messaging
+
+### Future Considerations (v2.0.0)
+- User authentication system
+- Database integration
+- Multi-file analysis
+- Advanced reporting features
