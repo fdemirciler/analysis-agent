@@ -8,7 +8,7 @@ class VarianceAnalysisInput(BaseModel):
     """Input parameters for variance analysis"""
     compare_periods: List[str] = Field(..., description="Periods to compare (e.g. ['2023', '2024'])")
     metrics: Optional[List[str]] = Field(None, description="Specific metrics to analyze (if None, analyzes all)")
-    significance_threshold: Optional[float] = Field(5.0, description="Percentage threshold for significant variance")
+    significance_threshold: Optional[float] = Field(0.0, description="Percentage threshold for significant variance")
 
 class VarianceAnalysisOutput(BaseModel):
     """Output from variance analysis"""

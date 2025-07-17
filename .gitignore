@@ -17,6 +17,9 @@ htmlcov/
 temp/
 *.tmp
 
+# Test and experimental files
+x/
+
 # IDE
 .vscode/
 .idea/
