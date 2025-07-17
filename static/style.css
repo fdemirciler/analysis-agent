@@ -10,8 +10,7 @@ body {
     background-color: #f5f7fa;
     color: #333;
     line-height: 1.6;
-    height: 100vh;
-    overflow: hidden;
+    font-family: 'Inter', sans-serif;
 }
 
 .app-container {
@@ -202,70 +201,192 @@ header h1 {
     margin-top: auto; /* Push to bottom of file section */
 }
 
-/* Scrollbar styling for webkit browsers */
+/* Custom scrollbar for a cleaner look */
 .chat-messages::-webkit-scrollbar {
     width: 6px;
 }
 
 .chat-messages::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 3px;
+    background: #f1f5f9;
 }
 
 .chat-messages::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
+    background: #cbd5e1;
     border-radius: 3px;
 }
 
 .chat-messages::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+    background: #94a3b8;
 }
 
-.file-info::-webkit-scrollbar {
+/* Dark mode scrollbar */
+.dark .chat-messages::-webkit-scrollbar-track {
+    background: #1e293b;
+}
+
+.dark .chat-messages::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.dark .chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* Animation for chat messages */
+.message-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Touch-friendly improvements */
+@media (hover: none) and (pointer: coarse) {
+    /* Touch devices */
+    button, label {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    #user-input {
+        font-size: 16px; /* Prevents zoom on iOS */
+    }
+    
+    .chat-messages {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Responsive design - Mobile and tablet optimizations */
+@media (max-width: 640px) {
+    /* Mobile optimizations */
+    .chat-messages {
+        padding-right: 0.25rem;
+    }
+    
+    .message-fade-in {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+    
+    /* Smaller gaps on mobile */
+    .chat-messages {
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Tablet optimizations */
+    .chat-messages {
+        scrollbar-width: thin;
+    }
+    
+    .chat-messages::-webkit-scrollbar {
+        width: 4px;
+    }
+}
+
+@media (max-width: 1024px) {
+    /* Reduce max width on smaller screens */
+    #main-content {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    header {
+        max-width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Additional styles for proper scrolling behavior */
+.chat-messages {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 #f1f5f9;
+    scroll-behavior: smooth;
+}
+
+.chat-messages::-webkit-scrollbar {
     width: 6px;
 }
 
-.file-info::-webkit-scrollbar-track {
-    background: #f1f1f1;
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f5f9;
     border-radius: 3px;
 }
 
-.file-info::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
     border-radius: 3px;
 }
 
-.file-info::-webkit-scrollbar-thumb:hover {
-    background: #a8a8a8;
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
 
-/* Responsive design */
-@media (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-        gap: 15px;
+/* Dark mode scrollbar */
+.dark .chat-messages {
+    scrollbar-color: #475569 #334155;
+}
+
+.dark .chat-messages::-webkit-scrollbar-track {
+    background: #334155;
+}
+
+.dark .chat-messages::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+.dark .chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+}
+
+/* Typing animation for processing messages */
+.typing-dots {
+    display: inline-flex;
+    gap: 1px;
+}
+
+.typing-dots .dot {
+    animation: typing-bounce 1.4s infinite;
+}
+
+.typing-dots .dot:nth-child(1) {
+    animation-delay: 0ms;
+}
+
+.typing-dots .dot:nth-child(2) {
+    animation-delay: 200ms;
+}
+
+.typing-dots .dot:nth-child(3) {
+    animation-delay: 400ms;
+}
+
+@keyframes typing-bounce {
+    0%, 60%, 100% {
+        transform: translateY(0);
     }
-    
-    .file-upload-section {
-        order: 1;
-        max-height: 250px; /* Slightly larger for mobile */
+    30% {
+        transform: translateY(-8px);
     }
-    
-    .file-info {
-        max-height: 150px; /* Reduced for mobile */
-    }
-    
-    .chat-section {
-        order: 2;
-        height: calc(100vh - 350px);
-        min-height: 300px;
-    }
-    
-    .app-container {
-        padding: 10px;
-    }
-    
-    header h1 {
-        font-size: 1.2rem; /* Even smaller on mobile, reduced from 1.5rem */
-    }
+}
+
+/* Processing message styling */
+.processing-message {
+    opacity: 0.8;
+}
+
+.processing-message .bg-slate-100 {
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+}
+
+.dark .processing-message .bg-slate-700 {
+    background-color: #334155;
+    border: 1px solid #475569;
 }
