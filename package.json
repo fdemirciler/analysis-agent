@@ -1,0 +1,19 @@
+{
+  "name": "analysis-agent-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for the AI Financial Analyst",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./static/src/input.css -o ./static/style.css --minify"
+  },
+  "keywords": [
+    "tailwind",
+    "fastapi",
+    "frontend"
+  ],
+  "author": "fdemirciler",
+  "license": "MIT",
+  "dependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}
