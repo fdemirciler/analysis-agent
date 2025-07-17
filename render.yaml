@@ -2,10 +2,7 @@ services:
   - type: web
     name: analysis-agent
     runtime: python
-    buildCommand: |
-      npm install
-      npm run build:css
-      pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt
     startCommand: python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /
     envVars:
@@ -15,4 +12,13 @@ services:
         value: false
       - key: PYTHON_VERSION
         value: 3.12.1
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: LLM_MODEL
+        value: gemini-2.5-flash
+      - key: LLM_TEMPERATURE
+        value: 0.1
+      - key: LLM_MAX_TOKENS
+        value: 8192
+      # LLM_API_KEY should be set securely in Render dashboard
     plan: free
