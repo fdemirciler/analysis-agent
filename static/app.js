@@ -198,7 +198,7 @@ function addProcessingMessage(text) {
     const messageHtml = `
         <div id="${messageId}" class="message-fade-in flex items-start gap-2 sm:gap-3 processing-message">
             <div class="bg-slate-200 dark:bg-slate-600 p-2 rounded-full">${iconSvg}</div>
-            <div class="bg-slate-100 dark:bg-slate-700 p-3 sm:p-4 rounded-lg max-w-xs sm:max-w-md lg:max-w-lg">
+            <div class="bg-slate-100 dark:bg-slate-700 p-3 sm:p-4 rounded-lg max-w-xs sm:max-w-md lg:max-w-xl xl:max-w-2xl w-full">
                 <p class="text-sm sm:text-base text-slate-700 dark:text-slate-200 flex items-center gap-2">
                     ${text}
                     <span class="typing-dots">
@@ -227,7 +227,7 @@ function removeProcessingMessage() {
 function addUserMessage(text) {
     const messageHtml = `
         <div class="message-fade-in flex items-start gap-2 sm:gap-3 justify-end">
-            <div class="bg-blue-500 text-white p-3 sm:p-4 rounded-lg max-w-xs sm:max-w-md lg:max-w-lg">
+            <div class="bg-blue-500 text-white p-3 sm:p-4 rounded-lg max-w-xs sm:max-w-md lg:max-w-xl xl:max-w-2xl">
                 <p class="text-sm sm:text-base">${text}</p>
             </div>
         </div>
@@ -262,7 +262,7 @@ function addBotMessage(text, type = 'info') {
     const messageHtml = `
         <div class="message-fade-in flex items-start gap-2 sm:gap-3">
             <div class="${iconContainerBgColor} p-2 rounded-full">${iconSvg}</div>
-            <div class="${bgColor} p-3 sm:p-4 rounded-lg max-w-xs sm:max-w-md lg:max-w-lg">
+            <div class="${bgColor} p-3 sm:p-4 rounded-lg max-w-xs sm:max-w-md lg:max-w-xl xl:max-w-2xl w-full">
                 <p class="text-sm sm:text-base text-slate-700 dark:text-slate-200">${text}</p>
             </div>
         </div>
@@ -279,6 +279,6 @@ function scrollToBottom() {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
-    addBotMessage("Welcome! I'm Fin-Botics, your AI financial analyst. Please upload your financial data in CSV or Excel format to get started.");
+    addBotMessage("Welcome! I'm your AI financial analyst. Please upload your financial data in CSV or Excel format to get started.");
     initWebSocket();
 });
