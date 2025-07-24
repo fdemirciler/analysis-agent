@@ -2,6 +2,94 @@
 
 All notable changes to the Financial Analysis Agent project will be documented in this file.
 
+## [1.2.0] - 2025-07-25 - Enhanced Data Processing & Response Formatting
+
+### 🔧 Major Data Processing Improvements
+
+#### Added
+- **Advanced Financial Data Cleaner**
+  - Comprehensive `FinancialDataCleaner` class with support for 8+ financial data formats
+  - Currency handling for multiple symbols: `$`, `£`, `€`, `¥`, `₹`
+  - Accounting format negatives: `(1,500)` → `-1500.0`
+  - Scientific notation support: `1.5e6` → `1500000.0`
+  - Fraction processing: `3/4` → `0.75`
+  - Advanced percentage handling with accounting formats
+  - Comprehensive missing value detection (11+ indicators)
+  - Robust error handling with fallback mechanisms
+  - Format analysis capabilities for enhanced data profiling
+
+#### Enhanced
+- **DataPreprocessor Integration**
+  - Integrated `FinancialDataCleaner` into existing `DataPreprocessor`
+  - Maintained backward compatibility with existing interface
+  - Added intelligent column exclusion for metric columns
+  - Enhanced logging and error reporting
+  - Graceful fallback to original cleaning method when needed
+
+### 🎨 Response Formatting Improvements
+
+#### Added
+- **Markdown-to-HTML Response Rendering**
+  - LLM responses now generated in Markdown format for better structure
+  - Integrated `marked.js` library for client-side Markdown parsing
+  - Rich text formatting with headers, lists, bold/italic text
+  - Professional table rendering with Markdown table syntax
+  - Enhanced readability with proper typography
+
+- **Advanced Table Styling**
+  - Added `@tailwindcss/typography` plugin for professional prose styling
+  - Custom CSS for financial data tables with proper borders and spacing
+  - Responsive table design with dark mode support
+  - Rounded corners and hover effects for better UX
+  - Consistent styling with application theme
+
+#### Technical Enhancements
+- **Frontend Improvements**
+  - Enhanced `addBotMessage` function to parse Markdown for `info` type messages
+  - Added `prose` classes for typography plugin integration
+  - Improved error handling for non-formatted message types
+  - Updated CSS build process to include new table styles
+
+- **Backend Improvements**
+  - Updated LLM prompts to generate structured Markdown responses
+  - Enhanced tool result formatting with explicit table generation instructions
+  - Improved response quality with professional financial analysis presentation
+
+### 🛠️ Dependencies & Configuration
+
+#### Added
+- **New Dependencies**
+  - `@tailwindcss/typography` for enhanced text styling
+  - `marked.js` (CDN) for Markdown-to-HTML conversion
+  - Enhanced Tailwind configuration with typography plugin
+
+#### Updated
+- **Configuration Files**
+  - Updated `tailwind.config.js` to include typography plugin
+  - Enhanced CSS input file with custom table and prose styles
+  - Rebuilt CSS with new formatting capabilities
+
+### 📊 Data Quality Improvements
+
+#### Enhanced
+- **Financial Data Processing**
+  - More accurate numeric conversion from diverse financial formats
+  - Better handling of edge cases and malformed data
+  - Improved data quality validation and reporting
+  - Enhanced support for international financial data formats
+
+#### Benefits
+- **User Experience**
+  - Significantly improved readability of analysis results
+  - Professional table presentation for financial data
+  - Better error handling and user feedback
+  - Support for more diverse financial dataset formats
+
+- **Analysis Quality**
+  - More accurate data processing leads to better analysis results
+  - Enhanced data profiling for better tool selection
+  - Improved format detection and handling
+
 ## [1.1.0] - 2025-07-17 - Enhanced UX & Responsive Design
 
 ### 🎨 Major Frontend Improvements

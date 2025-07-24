@@ -23,23 +23,23 @@ const allowedFileTypes = [
 function initWebSocket() {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${protocol}//${window.location.host}/ws`;
-    
+
     ws = new WebSocket(wsUrl);
-    
+
     ws.onopen = () => {
         // The initial welcome message is now handled by DOMContentLoaded
     };
-    
+
     ws.onclose = () => {
         addBotMessage("Connection lost. Attempting to reconnect...", "error");
         setTimeout(initWebSocket, 2000); // Try to reconnect
     };
-    
+
     ws.onerror = (error) => {
         console.error('WebSocket error:', error);
         addBotMessage("Connection error. Please refresh the page.", "error");
     };
-    
+
     ws.onmessage = (event) => {
         const message = JSON.parse(event.data);
         handleBackendMessage(message);
@@ -48,17 +48,17 @@ function initWebSocket() {
 
 // Handle incoming messages from the backend
 function handleBackendMessage(message) {
-    switch(message.type) {
+    switch (message.type) {
         case 'session_created':
             sessionId = message.session_id;
             break;
-            
+
         case 'processing_status':
             // Show processing status as a bot message with typing indicator
             const processingMessage = message.status || 'Processing...';
             addProcessingMessage(processingMessage);
             break;
-            
+
         case 'file_processed':
             // Remove any processing message first
             removeProcessingMessage();
@@ -70,19 +70,19 @@ function handleBackendMessage(message) {
             addBotMessage(successMessage, 'success');
             userInput.focus();
             break;
-            
+
         case 'query_response':
             // Remove any processing message first
             removeProcessingMessage();
             addBotMessage(message.response);
             break;
-            
+
         case 'error':
             // Remove any processing message first
             removeProcessingMessage();
             addBotMessage(`Error: ${message.message}`, 'error');
             break;
-            
+
         default:
             console.log('Unknown message type:', message);
     }
@@ -140,25 +140,25 @@ function handleFileUpload(file) {
     }
 
     const reader = new FileReader();
-    
+
     reader.onload = (e) => {
         if (!ws || ws.readyState !== WebSocket.OPEN) {
             addBotMessage('Cannot upload file. WebSocket is not connected.', 'error');
             return;
         }
-        
+
         addBotMessage(`Uploading "${file.name}"...`);
-        
+
         // Add processing message for file upload
         addProcessingMessage('Processing your file...');
-        
+
         ws.send(JSON.stringify({
             type: 'file_upload',
             file_name: file.name,
             data: e.target.result
         }));
     };
-    
+
     reader.readAsDataURL(file);
 }
 
@@ -173,10 +173,10 @@ function sendMessage() {
 
     addUserMessage(messageText);
     userInput.value = '';
-    
+
     // Add immediate processing message
     addProcessingMessage('Analyzing your question...');
-    
+
     ws.send(JSON.stringify({
         type: 'query',
         query: messageText
@@ -187,14 +187,14 @@ function sendMessage() {
 function addProcessingMessage(text) {
     // Remove any existing processing message first
     removeProcessingMessage();
-    
+
     const messageId = 'processing-message-' + Date.now();
     currentProcessingMessageId = messageId;
-    
+
     const iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-500 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
     </svg>`;
-    
+
     const messageHtml = `
         <div id="${messageId}" class="message-fade-in flex items-start gap-2 sm:gap-3 processing-message">
             <div class="bg-slate-200 dark:bg-slate-600 p-2 rounded-full">${iconSvg}</div>
@@ -241,7 +241,7 @@ function addBotMessage(text, type = 'info') {
     let bgColor;
     let iconContainerBgColor = 'bg-slate-200 dark:bg-slate-600';
 
-    switch(type) {
+    switch (type) {
         case 'success':
             iconSvg = `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 dark:text-green-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>`;
             bgColor = 'bg-green-100 dark:bg-green-900/30';
@@ -259,11 +259,14 @@ function addBotMessage(text, type = 'info') {
             bgColor = 'bg-slate-100 dark:bg-slate-700';
     }
 
+    // Convert Markdown to HTML using marked.js for 'info' type messages
+    const formattedText = (type === 'info') ? marked.parse(text) : text;
+
     const messageHtml = `
         <div class="message-fade-in flex items-start gap-2 sm:gap-3">
             <div class="${iconContainerBgColor} p-2 rounded-full">${iconSvg}</div>
-            <div class="${bgColor} p-3 sm:p-4 rounded-lg max-w-xs sm:max-w-md lg:max-w-xl xl:max-w-2xl w-full">
-                <p class="text-sm sm:text-base text-slate-700 dark:text-slate-200">${text}</p>
+            <div class="${bgColor} p-3 sm:p-4 rounded-lg max-w-xs sm:max-w-md lg:max-w-xl xl:max-w-2xl w-full prose dark:prose-invert prose-sm sm:prose-base">
+                ${(type === 'info') ? formattedText : `<p class="text-sm sm:text-base text-slate-700 dark:text-slate-200">${formattedText}</p>`}
             </div>
         </div>
     `;

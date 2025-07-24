@@ -120,14 +120,13 @@ class GeminiProvider(LLMProvider):
         ANALYSIS RESULTS:
         {json.dumps(tool_result, indent=2)}
         
-        Based on these results, provide a concise but informative response that:
-        1. Directly answers the user's question
-        2. Highlights the most significant findings and patterns
-        3. Focuses on results rather than methodology
-        4. Uses appropriate financial terminology
-        5. Is written in a professional tone
-
-        Your response should be well-structured with paragraphs and bullet points where appropriate.
+        Based on these results, provide a comprehensive, easy-to-understand summary using Markdown.
+        - Use headings, subheadings, and bullet points to structure the information.
+        - Use bold and italics to emphasize key terms and findings.
+        - **Crucially, format any tabular data using Markdown table syntax.**
+        
+        Your response should be well-structured, professional, and directly answer the user's query.
+        Focus on the insights from the data, not the methodology.
         """
 
         response = await self.generate_text(prompt)

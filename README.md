@@ -15,6 +15,23 @@ This application provides an intelligent financial data analysis platform that a
 - **Real-time Communication**: WebSocket-based interface for instant responses
 - **Session Management**: Persistent user sessions with conversation history
 
+### Advanced Data Processing
+- **Enhanced Financial Data Cleaner**: Comprehensive support for 8+ financial data formats
+  - **Currency Formats**: Multiple symbols (`$`, `£`, `€`, `¥`, `₹`) with comma separation
+  - **Accounting Negatives**: `(1,500)` → `-1500.0`
+  - **Scientific Notation**: `1.5e6` → `1500000.0`
+  - **Fractions**: `3/4` → `0.75`
+  - **Percentages**: Advanced handling including accounting formats
+  - **Missing Values**: Comprehensive detection (11+ indicators)
+- **Intelligent Data Profiling**: Automatic format detection and analysis
+- **Robust Error Handling**: Graceful fallback mechanisms for data processing
+
+### Rich Response Formatting
+- **Markdown-to-HTML Rendering**: Professional formatting of analysis results
+- **Enhanced Table Display**: Beautiful, responsive tables for financial data
+- **Structured Responses**: Headers, lists, and emphasized text for better readability
+- **Dark Mode Support**: Consistent styling across all themes
+
 ### Technical Features
 - **Multi-LLM Support**: Flexible provider system (Gemini, OpenAI)
 - **Data Profiling**: Automatic detection of time periods, metrics, and data structure
@@ -41,6 +58,7 @@ This application provides an intelligent financial data analysis platform that a
 - **`app/tools/base.py`**: Base class for analysis tools
 - **`app/tools/variance.py`**: Variance analysis implementation
 - **`app/tools/preprocess.py`**: Data preprocessing utilities
+- **`app/tools/data_cleaner.py`**: Advanced financial data cleaning engine
 
 #### API Layer
 - **`app/api/websocket.py`**: WebSocket communication handler
@@ -53,12 +71,14 @@ This application provides an intelligent financial data analysis platform that a
 
 ### Data Flow
 1. User uploads financial data file
-2. Data profiler analyzes structure and identifies periods/metrics
-3. User submits natural language query
-4. LLM interprets query and selects appropriate tool
-5. Analysis tool processes data with specified parameters
-6. LLM formats results into natural language response
-7. Response displayed in chat interface
+2. **Enhanced data cleaning** processes various financial formats automatically
+3. Data profiler analyzes structure and identifies periods/metrics
+4. User submits natural language query
+5. LLM interprets query and selects appropriate tool
+6. Analysis tool processes data with specified parameters
+7. LLM formats results into **structured Markdown** response
+8. **Frontend renders Markdown** into beautiful HTML tables and formatted text
+9. Response displayed in chat interface with professional formatting
 
 ## 🛠️ Setup & Installation
 
@@ -101,23 +121,39 @@ This application provides an intelligent financial data analysis platform that a
 ## 📊 Usage Examples
 
 ### Supported Data Formats
-The system works best with financial data in wide format:
-- First column: Metric names (e.g., "Revenue", "Operating Expenses")
-- Subsequent columns: Time periods (e.g., "2022", "2023", "2024")
+The system now supports comprehensive financial data formats with advanced cleaning:
+
+#### Supported Financial Formats
+- **Currency Values**: `$1,500`, `£2,000`, `€3,000`, `¥4,000`, `₹5,000`
+- **Negative Currencies**: `($1,500)`, `(£2,000)` → `-1500.0`, `-2000.0`
+- **Percentages**: `15.5%`, `125.9%` → `0.155`, `1.259`
+- **Accounting Negatives**: `(1,200)`, `(25.0%)` → `-1200.0`, `-0.25`
+- **Scientific Notation**: `1.5e6`, `2.1e3` → `1500000.0`, `2100.0`
+- **Fractions**: `3/4`, `7/8` → `0.75`, `0.875`
+- **Numbers with Commas**: `9,439`, `1,500,000` → `9439.0`, `1500000.0`
+- **Missing Values**: `-`, `N/A`, `NULL`, `#VALUE!` → `None`
+
+#### Data Structure Support
+- **Wide Format**: First column contains metric names, subsequent columns are time periods
+- **Automatic Detection**: System identifies format and structure automatically
+- **Column Recognition**: Intelligent identification of metric vs. data columns
 
 ### Example Queries
-- **"Compare the last two periods and perform a variance analysis"**
+- **"Compare the last two periods and show variance as a table. use all metrics."**
   - Automatically identifies most recent periods
   - Calculates absolute and percentage variances
+  - **Displays results in beautifully formatted HTML tables**
   - Highlights significant changes above threshold
 
 - **"Show me variance line by line in the same P&L format"**
   - Provides detailed variance breakdown
   - Maintains original financial statement structure
+  - **Professional table formatting with responsive design**
 
 - **"What metrics showed the largest percentage increase?"**
   - Ranks metrics by variance magnitude
   - Focuses on growth indicators
+  - **Rich text formatting with emphasis and structure**
 
 ## 🔧 Technical Implementation Details
 
@@ -156,10 +192,13 @@ The system works best with financial data in wide format:
 
 ### What Works (MVP Status)
 ✅ File upload and processing  
+✅ **Enhanced financial data cleaning** (8+ format support)  
 ✅ Data structure detection  
 ✅ Natural language query processing  
 ✅ Variance analysis tool  
 ✅ LLM-powered response generation  
+✅ **Markdown-to-HTML response formatting**  
+✅ **Professional table rendering**  
 ✅ WebSocket real-time communication  
 ✅ Session management  
 ✅ Error handling and retry logic  
@@ -168,6 +207,7 @@ The system works best with financial data in wide format:
 ✅ Mobile and tablet optimized experience  
 ✅ Smooth scrolling and proper layout behavior  
 ✅ Touch-friendly interactions  
+✅ **Dark mode support for all formatted content**  
 
 ### Tested Scenarios
 - NVIDIA financial data variance analysis
